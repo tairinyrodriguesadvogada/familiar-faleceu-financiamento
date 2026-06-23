@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://familiar-faleceu-financiamento.tairinyemarcio.adv.br/>; rel=\"canonical\""
+        }
+      ]
+    }
+  ]
+}
