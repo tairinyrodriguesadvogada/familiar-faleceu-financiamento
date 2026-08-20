@@ -529,11 +529,13 @@ function qtCalcular() {
   var pagas = parseFloat(document.getElementById('qt-pagas').value) || 0;
   var total = parseFloat(document.getElementById('qt-total').value) || 0;
   if (fin <= 0 || pagas <= 0 || total <= 0) { alert('Preencha todos os campos.'); return; }
+  if (pagas > total) { alert('O número de parcelas pagas não pode ser maior que o total do financiamento. Confira os dois campos.'); return; }
 
   /* Saldo devedor estimado. A amortizacao real (Price/SAC) deixa saldo MAIOR
      que a proporcao linear, sobretudo no inicio do contrato — por isso a
      estimativa e conservadora e o valor real tende a ser superior. */
-  var saldo = fin * ((total - pagas) / total);
+  var saldo = Math.max(0, fin * ((total - pagas) / total));
+  if (saldo === 0) { alert('Pelos dados informados o financiamento já está quitado. Nesse caso o pedido costuma ser de RESTITUIÇÃO das parcelas pagas indevidamente após o sinistro — fale com a Dra. Tairiny para analisar.'); return; }
   var moraisMin = 5000, moraisMax = 12000;
   var totalMin = saldo + moraisMin;
   var totalMax = saldo + moraisMax;
